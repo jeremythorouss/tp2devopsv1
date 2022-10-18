@@ -18,4 +18,5 @@ jobs:
 
      #finally build your app with the latest command
       - name: Build and test with Maven
-        run: #TODO
+        run: mvn clean verify --file /path/to/pom.xml
+        #TODO
