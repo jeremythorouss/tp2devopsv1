@@ -26,7 +26,7 @@ jobs:
          run:  mvn package --file simple-api/pom.xml
          
  build-and-push-docker-image:
-    needs: build-and-test-app
+    needs: test-backend
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-latest
 
