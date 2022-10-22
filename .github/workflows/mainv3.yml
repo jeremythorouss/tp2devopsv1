@@ -47,7 +47,7 @@ jobs:
            context: ./simple-api
            # Note: tags has to be all lower-case
            #tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-epf/simple-api
-           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-epf-isidore:simple-api
+           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-epf-jeremy:simple-api
            push: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Build image and push database
