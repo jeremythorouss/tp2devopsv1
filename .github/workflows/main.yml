@@ -4,16 +4,12 @@ on:
   push:
     branches:
       - main
-      - develop
 
   pull_request:
 
 jobs:
   build-and-test-app:
     runs-on: ubuntu-18.04
-    env:
-      working-directory: ./simple-api
-
     steps:
       #checkout your GitHub code using actions/checkout@v2.3.3 and actions/setup-java@v2
        - name: Set up checkout
@@ -29,49 +25,4 @@ jobs:
        - name: Build and test with Maven
          run:  mvn package --file simple-api/pom.xml
 
-  build-and-push-docker-image:
-    needs: build-and-test-app
-
-    env:
-      working-directory: ./simple-api
-
-    # run only when code is compiling and tests are passing
-    if: ${{ github.ref == 'refs/heads/master' }}
-    runs-on: ubuntu-latest
-    # steps to perform in job
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-           username: ${{ secrets.DOCKERHUB_USERNAME }}
-           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build image and push backend
-        uses: docker/build-push-action@v2
-        with:
-           # relative path to the place where source code with Dockerfile is located
-           context: ./simple-api
-           # Note: tags has to be all lower-case
-           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-epf-isidore:simple-api
-           push: ${{ github.ref == 'refs/heads/master' }}
-
-      - name: Build image and push database
-        uses: docker/build-push-action@v2
-        with:
-           # relative path to the place where source code with Dockerfile is located
-           context: ./database
-           # Note: tags has to be all lower-case
-           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-epf-isidore:database
-           push: ${{ github.ref == 'refs/heads/master' }}
-
-      - name: Build image and push httpd
-        uses: docker/build-push-action@v2
-        with:
-           # relative path to the place where source code with Dockerfile is located
-           context: ./httpd
-           # Note: tags has to be all lower-case
-           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-epf-isidore:httpd
-           push: ${{ github.ref == 'refs/heads/master' }}
+ 
