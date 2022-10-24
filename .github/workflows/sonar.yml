@@ -1,4 +1,4 @@
-name: CI devops 2022 EPF
+name: CI devops 2022 EPF sonar
 on:
   #to begin you want to launch this job in main and develop
   push:
@@ -70,5 +70,5 @@ jobs:
            # Note: tags has to be all lower-case
            tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-epf-jeremy:httpd
            push: ${{ github.ref == 'refs/heads/main' }}
-           ##
+           ###
            
