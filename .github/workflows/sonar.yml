@@ -24,8 +24,9 @@ jobs:
             java-version: '11'
             cache: 'maven'
 
-       - name: Build and test with Maven
-         run:  mvn package --file simple-api/pom.xml
+       - name: Build and test with Maven, sonar
+         run:  mvn -B verify sonar:sonar -Dsonar.projectKey=Projetjtdevops20221024 -Dsonar.organization=Epfdevopsjt -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file ./simple-api/pom.xml
+
 
   build-and-push-docker-image:
     needs: build-and-test-app
@@ -69,4 +70,5 @@ jobs:
            # Note: tags has to be all lower-case
            tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-epf-jeremy:httpd
            push: ${{ github.ref == 'refs/heads/main' }}
+           #
            
